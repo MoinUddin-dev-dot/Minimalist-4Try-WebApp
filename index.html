@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minimalist WebApp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 text-gray-800 flex flex-col items-center justify-center min-h-screen p-6 space-y-6">
+    <div class="quote-container bg-white shadow-lg rounded-xl p-6 max-w-xl w-full text-center">
+      <p class="quote text-xl font-semibold italic">quote here</p>
+    </div>
+    <div class="emoji-container flex space-x-6 text-lg font-medium"></div>
+   
+        <button class="new-quote-button mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow" onclick="showRandomQuote()">
+            New Quote
+        </button>
+   
+    <script>
+      let quotes = document.getElementsByClassName("quote")[0];
+      let emojiContainer = document.getElementsByClassName("emoji-container")[0];
+      let emojis = {
+        "❤️": 0,
+        "😂": 0,
+        "🔥": 0,
+        "😢": 0,
+      };
+      let quotesArray = [
+        "The only limit to our realization of tomorrow is our doubts of today.",
+        "The future belongs to those who believe in the beauty of their dreams.",
+        "Do not wait to strike till the iron is hot, but make it hot by striking.",
+        "Success usually comes to those who are too busy to be looking for it.",
+        "The way to get started is to quit talking and begin doing.",
+        "The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty.",
+        "Don't watch the clock; do what it does. Keep going.",
+        "You can never plan the future by the past.",   
+      ]
+
+      function showRandomQuote(){
+        let randomIndex = Math.floor(Math.random()*quotesArray.length)
+        quotes.textContent = quotesArray[randomIndex]
+        for (const emoji in emojis) {
+            emojis[emoji] = 0
+        }
+        renderEmojis()
+      }
+      
+
+
+
+        function renderEmojis(){
+            emojiContainer.innerHTML = ""
+            for (const emoji in emojis) {
+                const emojiDiv = document.createElement("button")
+                emojiDiv.innerHTML = `${emoji} ${emojis[emoji]}`
+                emojiDiv.className = "emoji text-2xl hover:scale-110 transition"
+                emojiDiv.addEventListener("click", () => {
+                    emojis[emoji]++
+                    emojiDiv.innerHTML = `${emoji} ${emojis[emoji]}`
+                })
+                emojiContainer.appendChild(emojiDiv)
+            }
+        }
+       
+
+        showRandomQuote()
+      
+    </script>
+  </body>
+</html>
